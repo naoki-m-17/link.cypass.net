@@ -1,0 +1,7 @@
+env:
+  # Secret Manager に登録したシークレットを環境変数として注入
+  - variable: FIREBASE_SERVICE_ACCOUNT_KEY
+    secret: FIREBASE_SERVICE_ACCOUNT_KEY
+    # RUNTIME のみ＝ビルド時には不要
+    availability:
+      - RUNTIME

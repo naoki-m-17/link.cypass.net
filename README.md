@@ -1,12 +1,14 @@
 # CyPass Link Service
 
-デプロイ情報：[https://link.cypass.net](https://link.cypass.net)
+（主に、受託開発の依頼をいただいたクライアント様のためのプレビューリンク共有用webアプリです。）
+
+デプロイ情報：[https://link.cypass.net](https://link.cypass.net)  
 リダイレクト例：[https://link.cypass.net/EQrE4sfZNy0XzOrE8DWU](https://link.cypass.net/EQrE4sfZNy0XzOrE8DWU)
 
 ---
 
-Next.jsを採用し、`/{id}` で Firestore に登録した URL へ転送し、クリック数・アクセス日時を記録します。
-受託のクライアント向けプレビューリンク共有用で、独自ドメインで信頼感を出しつつ、遷移先は DB の更新だけで差し替えられます。
+`/{id}` で Firestore に登録した URL へ転送し、クリック数・アクセス日時を記録します。  
+独自ドメインで信頼感を出しつつ、遷移先は DB の更新だけで差し替えられます。
 
 ---
 
@@ -73,3 +75,5 @@ cp .env.example .env
 # .env に FIREBASE_SERVICE_ACCOUNT_KEY を設定
 pnpm dev
 ```
+
+**Firebase App Hosting + Secret Manager** で本番デプロイする場合は [docs/APP_HOSTING_SECRETS.md](docs/APP_HOSTING_SECRETS.md) を参照。
