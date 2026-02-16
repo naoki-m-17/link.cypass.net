@@ -1,7 +1,3 @@
-/**
- * リダイレクト先URLを取得するサービス（Firestore 使用）
- */
-
 import * as admin from "firebase-admin";
 import { getFirestore } from "./firebase-admin";
 
@@ -9,7 +5,7 @@ import { getFirestore } from "./firebase-admin";
 const REDIRECTS_COLLECTION = "redirects";
 const NOT_FOUND_LOGS_COLLECTION = "notFoundLogs";
 
-// link.cypass.net へのリダイレクトを禁止
+// link.cypass.net へのリダイレクトを禁止（ループ防止）
 function isRedirectToSelf(url: string): boolean {
   try {
     const normalized =
@@ -39,7 +35,6 @@ export async function getRedirectUrl(id: string): Promise<string | null> {
     return null;
   }
 
-  // 本サービスへのリダイレクトは禁止（ループ防止・濫用防止）
   if (isRedirectToSelf(url)) {
     return null;
   }
@@ -47,7 +42,7 @@ export async function getRedirectUrl(id: string): Promise<string | null> {
   return url;
 }
 
-// クリック数の加算、アクセス日時の記録
+// クリック数、アクセス日時の記録
 export async function incrementClickCount(id: string): Promise<void> {
   const db = getFirestore();
   if (!db) {
@@ -65,7 +60,7 @@ export async function incrementClickCount(id: string): Promise<void> {
   );
 }
 
-// 404 エラー時の記録（アクセスURL・タイムスタンプ）
+// 404 エラーの記録（アクセスURL・タイムスタンプ）
 export async function record404Error(requestedUrl: string): Promise<void> {
   const db = getFirestore();
   if (!db) {

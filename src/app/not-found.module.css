@@ -68,6 +68,25 @@
   width: 100%;
 }
 
+.feedbackSuccess {
+  font-size: 0.875rem;
+  color: var(--foreground);
+  opacity: 0.9;
+  margin: 0;
+}
+
+.feedbackError {
+  font-size: 0.875rem;
+  color: #dc2626;
+  margin: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .feedbackError {
+    color: #f87171;
+  }
+}
+
 .inputWrapper {
   position: relative;
   width: 100%;
@@ -114,6 +133,11 @@
   border-radius: 50%;
   cursor: pointer;
   transition: opacity 0.2s;
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @media (hover: hover) and (pointer: fine) {

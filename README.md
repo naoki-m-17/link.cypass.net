@@ -20,6 +20,7 @@
 | 言語 | TypeScript |
 | データベース | Firebase Firestore |
 | 認証・接続 | Firebase Admin SDK（サーバーサイドのみ） |
+| メール送信 | Gmail API (OAuth 2.0) |
 
 ---
 
@@ -51,19 +52,24 @@
 ### ディレクトリ構成
 
 ```
+scripts/
+├── get-gmail-refresh-token.mjs  # Gmail API 用リフレッシュトークン取得（pnpm gmail:token）
 src/
 ├── app/                    # Next.js App Router（UI・ルーティング）
+│   ├── api/contact/        # 問い合わせフォーム API (POST)
 │   ├── [id]/page.tsx       # 動的ルート: リダイレクト処理（Server Component）
 │   ├── page.tsx            # トップ: サービス説明・他サービスへの導線
 │   ├── not-found.tsx       # 404: リンク未検出時の表示
 │   ├── layout.tsx
 └── lib/                    # ドメイン・インフラ層
     ├── redirectService.ts  # リダイレクト先取得・クリック/アクセス日時記録
-    └── firebase-admin.ts    # Firebase Admin 初期化・Firestore 取得
+    ├── emailService.ts    # 問い合わせメール送信（Gmail API）
+    └── firebase-admin.ts  # Firebase Admin 初期化・Firestore 取得
 ```
 
 - **app**: ルートとページの責務のみ。ビジネスロジックは `lib` に委譲。
 - **lib**: Firestore のコレクション名やフィールド操作を集約。`firebase-admin` の初期化は `firebase-admin.ts` に限定し、他モジュールは `getFirestore()` 経由でのみ利用。
+- **scripts**: セットアップ・メンテナンス用スクリプト。`pnpm gmail:token` で Gmail のリフレッシュトークンを取得。
 
 ---
 
@@ -72,11 +78,16 @@ src/
 ```bash
 pnpm install
 cp .env.example .env
-# .env に FIREBASE_SERVICE_ACCOUNT_KEY を設定
+# .env に FIREBASE_SERVICE_ACCOUNT_KEY および Gmail API 用の変数を設定
 pnpm dev
 ```
 
 **Firebase App Hosting + Secret Manager** で本番デプロイする場合は [docs/APP_HOSTING_SECRETS.md](docs/APP_HOSTING_SECRETS.md) を参照。
+
+### Gmail API（問い合わせフォーム）関連
+
+- 初回セットアップ: [docs/GMAIL_API_SETUP.md](docs/GMAIL_API_SETUP.md) を参照
+- **リフレッシュトークンの再取得**: トークンが失効した場合など、`pnpm gmail:token` を実行。ブラウザで認可後、出力されたトークンを `.env` および Secret Manager の `GMAIL_REFRESH_TOKEN` に登録する
 
 ---
 
