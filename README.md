@@ -77,3 +77,11 @@ pnpm dev
 ```
 
 **Firebase App Hosting + Secret Manager** で本番デプロイする場合は [docs/APP_HOSTING_SECRETS.md](docs/APP_HOSTING_SECRETS.md) を参照。
+
+---
+
+## 開発中の注意
+
+本番デプロイ前に以下を確認すること。
+
+- `app/[id]/page.tsx`: `record404Error` のコメントアウトを外す

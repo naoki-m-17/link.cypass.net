@@ -20,7 +20,7 @@ export default async function RedirectPage({ params }: PageProps) {
   const url = await getRedirectUrl(id);
 
   if (url === null) {
-    await record404Error(await getRequestedUrl(id));
+    // await record404Error(await getRequestedUrl(id));
     notFound();
   }
 

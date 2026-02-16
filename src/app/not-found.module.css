@@ -13,7 +13,8 @@
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  max-width: 400px;
+  max-width: 480px;
+  width: 100%;
 }
 
 .title {
@@ -37,20 +38,87 @@
   opacity: 0.75;
 }
 
-.button {
-  margin-top: 1rem;
-  padding: 0.625rem 1.25rem;
+.contactSection {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--foreground) 15%, transparent);
+}
+
+.contactTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.01em;
+}
+
+.contactDescription {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--foreground);
+  opacity: 0.85;
+  margin: 0 0 1rem 0;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.textInput {
+  width: 100%;
+  padding: 0.5rem 3rem 0.5rem 1rem;
   font-size: 0.9375rem;
-  font-weight: 500;
+  line-height: 1.5;
+  font-family: inherit;
+  color: var(--foreground);
+  background: var(--background);
+  border: 1px solid var(--foreground);
+  border-radius: 0.375rem;
+  text-align: center;
+}
+
+.textInput::placeholder {
+  color: var(--foreground);
+  opacity: 0.5;
+  text-align: center;
+}
+
+.textInput:focus {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+
+.submitButton {
+  position: absolute;
+  top: 50%;
+  right: 0.375rem;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
   background: var(--foreground);
   color: var(--background);
-  border-radius: 0.375rem;
-  text-decoration: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
   transition: opacity 0.2s;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .button:hover {
+  .submitButton:hover {
     opacity: 0.9;
   }
 }
+
