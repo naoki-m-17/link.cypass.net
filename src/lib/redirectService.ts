@@ -7,6 +7,7 @@ import { getFirestore } from "./firebase-admin";
 
 // Firestore のコレクション名
 const REDIRECTS_COLLECTION = "redirects";
+const NOT_FOUND_LOGS_COLLECTION = "notFoundLogs";
 
 // link.cypass.net へのリダイレクトを禁止
 function isRedirectToSelf(url: string): boolean {
@@ -62,4 +63,17 @@ export async function incrementClickCount(id: string): Promise<void> {
     },
     { merge: true }
   );
+}
+
+// 404 エラー時の記録（アクセスURL・タイムスタンプ）
+export async function record404Error(requestedUrl: string): Promise<void> {
+  const db = getFirestore();
+  if (!db) {
+    return;
+  }
+
+  await db.collection(NOT_FOUND_LOGS_COLLECTION).add({
+    url: requestedUrl,
+    timestamp: admin.firestore.Timestamp.now(),
+  });
 }
