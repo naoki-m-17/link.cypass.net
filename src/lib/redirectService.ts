@@ -8,6 +8,23 @@ import { getFirestore } from "./firebase-admin";
 // Firestore のコレクション名
 const REDIRECTS_COLLECTION = "redirects";
 
+// link.cypass.net へのリダイレクトを禁止
+function isRedirectToSelf(url: string): boolean {
+  try {
+    const normalized =
+      url.startsWith("http://") || url.startsWith("https://")
+        ? url
+        : `https://${url}`;
+    const parsed = new URL(normalized);
+    const hostname = parsed.hostname.toLowerCase();
+    return (
+      hostname === "link.cypass.net" || hostname.endsWith(".link.cypass.net")
+    );
+  } catch {
+    return false;
+  }
+}
+
 // リダイレクト先URLを取得
 export async function getRedirectUrl(id: string): Promise<string | null> {
   const db = getFirestore();
@@ -17,7 +34,16 @@ export async function getRedirectUrl(id: string): Promise<string | null> {
 
   const doc = await db.collection(REDIRECTS_COLLECTION).doc(id).get();
   const url = doc.data()?.url;
-  return typeof url === "string" ? url : null;
+  if (typeof url !== "string") {
+    return null;
+  }
+
+  // 本サービスへのリダイレクトは禁止（ループ防止・濫用防止）
+  if (isRedirectToSelf(url)) {
+    return null;
+  }
+
+  return url;
 }
 
 // クリック数の加算、アクセス日時の記録

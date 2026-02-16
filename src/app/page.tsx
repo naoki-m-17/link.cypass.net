@@ -9,7 +9,7 @@ const SERVICES = [
   {
     href: "https://naoki.cypass.net",
     name: "naoki.cypass.net",
-    description: "Web開発（受託）",
+    description: "受託開発事業",
   },
   {
     href: "https://knowledge.cypass.net",
