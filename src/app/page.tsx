@@ -1,21 +1,21 @@
 import "./home.scss";
 
 const SERVICES = [
-{
-	href: "https://cypass.net",
-	name: "会社HP",
-	image: "/images/cypass-company.png",
-},
-{
-	href: "https://naoki.cypass.net",
-	name: "受託開発事業",
-	image: "/images/cypass-development.png",
-},
-{
-	href: "https://knowledge.cypass.net",
-	name: "ナレッジ",
-	image: "/images/cypass-knowledge.png",
-},
+// {
+// 	href: "https://cypass.net",
+// 	name: "会社HP",
+// 	image: "/images/cypass-company.png",
+// },
+// {
+// 	href: "https://naoki.cypass.net",
+// 	name: "受託開発事業",
+// 	image: "/images/cypass-development.png",
+// },
+// {
+// 	href: "https://knowledge.cypass.net",
+// 	name: "ナレッジ",
+// 	image: "/images/cypass-knowledge.png",
+// },
 // {
 // 	href: "https://sutekina-omise.com",
 // 	name: "ステキなオミセ",
