@@ -1,0 +1,107 @@
+.home {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	padding: 32px 24px;
+
+	&Main {
+		padding: 120px 0;
+		
+		&Heading {
+			font-size: 28px;
+			font-weight: bold;
+			margin-bottom: 32px;
+			text-align: center;
+		}
+
+		&Text {
+			font-size: 16px;
+			color: var(--muted);
+			text-align: center;
+		}
+	}
+
+	&Service {
+		&Heading {
+			text-align: center;
+			font-size: 24px;
+			font-weight: bold;
+			margin-bottom: 32px;
+		}
+
+		&List {
+			display: grid;
+			grid-template-columns: repeat(2, 240px);
+			justify-content: center;
+			gap: 40px;
+
+			&Item {
+				display: flex;
+				flex-direction: column;
+				align-items: stretch;
+				cursor: pointer;
+
+				&Image {
+					border-radius: 20px;
+					transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+					&:hover {
+						transform: scale(1.1);
+						box-shadow: 0 8px 32px rgba(255, 255, 255, 0.3);
+					}
+				}
+
+				&Name {
+					text-align: center;
+					color: var(--muted);
+					margin-top: 16px;
+					font-size: 14px;
+				}
+			}
+		}
+	}
+}
+
+// レスポンシブ
+@media (max-width: 768px) {
+	.home {
+		padding: 32px 40px;
+
+		&Main {
+			padding: 80px 0;
+
+			&Heading {
+				font-size: 24px;
+				margin-bottom: 28px;
+			}
+
+			&Text {
+				font-size: 12px;
+			}
+		}
+		&Service {
+			&Heading {
+				font-size: 20px;
+			}
+
+			&List {
+				grid-template-columns: repeat(2, 120px);
+				gap: 24px;
+
+				&Item {
+
+					&Image {
+						border-radius: 16px;
+					}
+
+					&Name {
+						margin-top: 8px;
+						font-size: 12px;
+					}
+				}
+			}
+		}
+	}
+}
