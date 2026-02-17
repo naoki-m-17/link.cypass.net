@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getClientIp } from "@/lib/getClientIp";
 import { sendContactEmail } from "@/lib/emailService";
 
 export async function POST(request: NextRequest) {
@@ -8,6 +9,8 @@ export async function POST(request: NextRequest) {
 	const body = formData.get("inquiry");
 	// アクセス元URLの取得
 	const referer = request.headers.get("referer");
+	// クライアントIPの取得（ブロック解除時の照合に利用）
+	const ip = await getClientIp();
 
 	if (typeof body !== "string") {
 		return NextResponse.json(
@@ -19,6 +22,7 @@ export async function POST(request: NextRequest) {
 	const result = await sendContactEmail({
 		body,
 		referer,
+		ip,
 	});
 
 	if (!result.ok) {

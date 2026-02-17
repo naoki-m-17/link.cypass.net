@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
-import { getRedirectUrl, incrementClickCount, record404Error } from "@/lib/redirectService";
+import { getClientIp } from "@/lib/getClientIp";
+import { getRedirectUrl, incrementClickCount, isIpBlocked, record404Error } from "@/lib/redirectService";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -16,11 +17,17 @@ async function getRequestedUrl(id: string): Promise<string> {
 
 export default async function RedirectPage({ params }: PageProps) {
   const { id } = await params;
-  // [id]を元に対応するURLを取得
+
+  // ブロックチェックを最優先（通信量削減・悪意あるアクセスの早期遮断）
+  const ip = await getClientIp();
+  if (await isIpBlocked(ip)) {
+    notFound();
+  }
+
   const url = await getRedirectUrl(id);
 
   if (url === null) {
-    // await record404Error(await getRequestedUrl(id));
+    await record404Error(await getRequestedUrl(id), ip);
     notFound();
   }
 

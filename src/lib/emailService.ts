@@ -49,6 +49,7 @@ function encodeMessage(from: string, to: string, subject: string, body: string):
 export async function sendContactEmail(params: {
 	body: string;
 	referer?: string | null;
+	ip?: string;
 }): Promise<{ ok: boolean; error?: string }> {
 	const auth = createOAuth2Client();
 	const from = process.env.GMAIL_USER;
@@ -72,6 +73,7 @@ export async function sendContactEmail(params: {
 			body,
 			"",
 			params.referer ? `【アクセス元URL】\n${params.referer}` : "",
+			params.ip ? `【IPアドレス】\n${params.ip}` : "",
 		]
 			.filter(Boolean)
 			.join("\n");

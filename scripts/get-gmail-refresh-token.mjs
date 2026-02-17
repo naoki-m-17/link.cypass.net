@@ -1,16 +1,16 @@
 #!/usr/bin/env node
-/**
- * Gmail API 用のリフレッシュトークンを取得するスクリプト
- *
- * 使用手順:
- * 1. Google Cloud Console で Gmail API を有効化
- * 2. OAuth 2.0 クライアント ID を作成（アプリケーションの種類: デスクトップアプリ）
- *    - リダイレクト URI に http://localhost:3456 を追加
- * 3. クライアント ID とシークレットを .env に設定
- * 4. このスクリプトを実行: node scripts/get-gmail-refresh-token.mjs
- * 5. ブラウザが開くので認可する
- * 6. 表示された refresh_token を Secret Manager の GMAIL_REFRESH_TOKEN に登録
- */
+// シバン：このファイルを直接実行した際、OS が node で実行するよう指定
+
+// Gmail API 用のリフレッシュトークンを取得するスクリプト
+
+// 使用手順:
+// 1. Google Cloud Console で Gmail API を有効化
+// 2. OAuth 2.0 クライアント ID を作成（アプリケーションの種類: デスクトップアプリ）
+//    （- リダイレクト URI に http://localhost:3456 を追加 ← デスクトップアプリの場合は自動設定されて不要かも）
+// 3. クライアント ID とシークレットを .env に設定
+// 4. このスクリプトを実行: node scripts/get-gmail-refresh-token.mjs
+// 5. ブラウザが開くので認可する
+// 6. 表示された refresh_token を Secret Manager の GMAIL_REFRESH_TOKEN に登録
 
 import { createServer } from "node:http";
 import { config } from "dotenv";
